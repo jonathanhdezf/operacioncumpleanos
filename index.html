@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,9 +9,8 @@
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts: Black Ops One (Militar) y Roboto -->
-    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Roboto:wght@400;700&display=swap"
-        rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             --ff-yellow: #FFBB00;
@@ -32,10 +30,9 @@
 
         /* Estilo para el slider de rango */
         input[type=range] {
-            -webkit-appearance: none;
-            background: transparent;
+            -webkit-appearance: none; 
+            background: transparent; 
         }
-
         input[type=range]::-webkit-slider-thumb {
             -webkit-appearance: none;
             height: 16px;
@@ -46,7 +43,6 @@
             margin-top: -6px;
             box-shadow: 0 0 10px var(--ff-yellow);
         }
-
         input[type=range]::-webkit-slider-runnable-track {
             width: 100%;
             height: 4px;
@@ -54,9 +50,8 @@
             background: #444;
             border-radius: 2px;
         }
-
         input[type=range]:focus {
-            outline: none;
+            outline: none; 
         }
 
         .font-ops {
@@ -71,20 +66,15 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: linear-gradient(to bottom, #0f0f0f, #000000);
+            background: linear-gradient(to bottom, #1a1a1a, #000000);
         }
 
         /* Glitch Effect para Títulos */
         .glitch {
             position: relative;
             color: white;
-            /* Tipografía responsiva fluida: mínimo 3rem, ideal 10vw, máximo 6rem */
-            font-size: clamp(3rem, 12vw, 6rem);
-            line-height: 1;
         }
-
-        .glitch::before,
-        .glitch::after {
+        .glitch::before, .glitch::after {
             content: attr(data-text);
             position: absolute;
             top: 0;
@@ -92,14 +82,12 @@
             width: 100%;
             height: 100%;
         }
-
         .glitch::before {
             left: 2px;
             text-shadow: -1px 0 red;
             clip: rect(24px, 550px, 90px, 0);
             animation: glitch-anim-2 3s infinite linear alternate-reverse;
         }
-
         .glitch::after {
             left: -2px;
             text-shadow: -1px 0 blue;
@@ -108,183 +96,61 @@
         }
 
         @keyframes glitch-anim {
-            0% {
-                clip: rect(10px, 9999px, 31px, 0);
-            }
-
-            20% {
-                clip: rect(80px, 9999px, 88px, 0);
-            }
-
-            40% {
-                clip: rect(20px, 9999px, 35px, 0);
-            }
-
-            60% {
-                clip: rect(10px, 9999px, 80px, 0);
-            }
-
-            80% {
-                clip: rect(50px, 9999px, 70px, 0);
-            }
-
-            100% {
-                clip: rect(90px, 9999px, 100px, 0);
-            }
+            0% { clip: rect(10px, 9999px, 31px, 0); }
+            20% { clip: rect(80px, 9999px, 88px, 0); }
+            40% { clip: rect(20px, 9999px, 35px, 0); }
+            60% { clip: rect(10px, 9999px, 80px, 0); }
+            80% { clip: rect(50px, 9999px, 70px, 0); }
+            100% { clip: rect(90px, 9999px, 100px, 0); }
         }
-
         @keyframes glitch-anim-2 {
-            0% {
-                clip: rect(60px, 9999px, 70px, 0);
-            }
-
-            20% {
-                clip: rect(10px, 9999px, 30px, 0);
-            }
-
-            40% {
-                clip: rect(50px, 9999px, 60px, 0);
-            }
-
-            60% {
-                clip: rect(30px, 9999px, 40px, 0);
-            }
-
-            80% {
-                clip: rect(80px, 9999px, 90px, 0);
-            }
-
-            100% {
-                clip: rect(20px, 9999px, 50px, 0);
-            }
+            0% { clip: rect(60px, 9999px, 70px, 0); }
+            20% { clip: rect(10px, 9999px, 30px, 0); }
+            40% { clip: rect(50px, 9999px, 60px, 0); }
+            60% { clip: rect(30px, 9999px, 40px, 0); }
+            80% { clip: rect(80px, 9999px, 90px, 0); }
+            100% { clip: rect(20px, 9999px, 50px, 0); }
         }
 
         /* Animación del Airdrop (Caja) */
         .airdrop-box {
-            animation: float 3s ease-in-out infinite;
+            animation: float 3.5s ease-in-out infinite;
             cursor: pointer;
             transition: transform 0.1s;
         }
-
         .airdrop-box:active {
             transform: scale(0.95);
         }
-
-        /* Haz de luz de la caja */
-        .beacon-light {
-            position: absolute;
-            bottom: 50%;
-            /* Nace desde el centro/arriba de la caja */
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            height: 200vh;
-            /* Se extiende hacia arriba infinitamente en pantalla */
-            background: linear-gradient(to top, rgba(255, 215, 0, 0.4), transparent);
-            filter: blur(15px);
-            z-index: -1;
-            animation: pulse-beacon 3s infinite ease-in-out;
-            pointer-events: none;
-        }
-
-        .beacon-core {
-            position: absolute;
-            bottom: 80%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 4px;
-            height: 200vh;
-            background: rgba(255, 255, 200, 0.8);
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
-            z-index: -1;
-        }
-
-        @keyframes pulse-beacon {
-
-            0%,
-            100% {
-                opacity: 0.5;
-                width: 40px;
-            }
-
-            50% {
-                opacity: 0.8;
-                width: 60px;
-            }
-        }
-
         .shake-box {
-            animation: shake 0.5s cubic-bezier(.36, .07, .19, .97) both infinite;
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both infinite;
         }
 
         @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-20px);
-            }
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-25px); }
         }
-
         @keyframes shake {
-
-            10%,
-            90% {
-                transform: translate3d(-1px, 0, 0);
-            }
-
-            20%,
-            80% {
-                transform: translate3d(2px, 0, 0);
-            }
-
-            30%,
-            50%,
-            70% {
-                transform: translate3d(-4px, 0, 0);
-            }
-
-            40%,
-            60% {
-                transform: translate3d(4px, 0, 0);
-            }
+            10%, 90% { transform: translate3d(-2px, 0, 0) rotate(-1deg); }
+            20%, 80% { transform: translate3d(4px, 0, 0) rotate(2deg); }
+            30%, 50%, 70% { transform: translate3d(-6px, 0, 0) rotate(-2deg); }
+            40%, 60% { transform: translate3d(6px, 0, 0) rotate(1deg); }
         }
 
-        /* Estilo Botón Free Fire Mejorado - Táctico */
+        /* Estilo Botón Free Fire Mejorado */
         .btn-ff {
-            background: linear-gradient(45deg, #FFD700, #FF8800);
-            border: none;
-            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+            background: linear-gradient(45deg, #FFBB00, #FF8800);
+            border: 2px solid #fff;
+            clip-path: polygon(10% 0, 100% 0, 100% 80%, 90% 100%, 0 100%, 0 20%);
             text-transform: uppercase;
-            font-weight: 900;
-            letter-spacing: 2px;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 10px 20px -5px rgba(255, 187, 0, 0.5);
-            position: relative;
-            overflow: hidden;
+            font-weight: 800;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            box-shadow: 0 0 15px rgba(255, 187, 0, 0.5), inset 0 0 10px rgba(255,255,255,0.5);
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
         }
-
         .btn-ff:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 15px 30px -5px rgba(255, 187, 0, 0.7);
-        }
-
-        .btn-ff::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            transition: 0.5s;
-        }
-
-        .btn-ff:hover::after {
-            left: 100%;
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 187, 0, 0.9), inset 0 0 20px rgba(255,255,255,0.7);
         }
 
         /* Pantallas */
@@ -300,58 +166,26 @@
             align-items: center;
             transition: opacity 0.5s ease;
         }
-
         .hidden {
             opacity: 0;
             pointer-events: none;
             z-index: -10;
         }
 
-        /* Tarjeta de Invitación - Estilo HUD */
+        /* Tarjeta de Invitación */
         .card-glass {
-            background: rgba(15, 15, 20, 0.85);
-            /* Más oscuro */
-            -webkit-backdrop-filter: blur(16px);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            box-shadow: 0 0 50px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(255, 215, 0, 0.05);
-            /* Esquinas recortadas estilo HUD */
-            clip-path: polygon(20px 0, 100% 0,
-                    100% calc(100% - 20px), calc(100% - 20px) 100%,
-                    0 100%, 0 20px);
-            position: relative;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--ff-yellow);
+            box-shadow: 0 0 40px rgba(255, 187, 0, 0.15);
+            clip-path: polygon(5% 0, 100% 0, 100% 95%, 95% 100%, 0 100%, 0 5%);
         }
-
-        /* Decoraciones de esquinas HUD */
-        .card-glass::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 30px;
-            height: 30px;
-            border-top: 2px solid var(--ff-yellow);
-            border-left: 2px solid var(--ff-yellow);
-            pointer-events: none;
-        }
-
-        .card-glass::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 30px;
-            height: 30px;
-            border-bottom: 2px solid var(--ff-yellow);
-            border-right: 2px solid var(--ff-yellow);
-            pointer-events: none;
-        }
-
+        
         .fire-text {
-            background: linear-gradient(to bottom, #fff 30%, #ffbb00 100%);
+            background: -webkit-linear-gradient(#fff, #ffbb00);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 10px rgba(255, 140, 0, 0.5));
+            filter: drop-shadow(0 0 5px rgba(255,100,0,0.8));
         }
 
         /* Partículas de Fuego (Canvas Overlay) */
@@ -365,12 +199,22 @@
 
         /* Mejoras en la Caja (Loot Box 3D effect) */
         .loot-face {
-            box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.9);
-            border-color: #ffd700;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.6);
+            background: linear-gradient(135deg, #1e3a8a 0%, #172554 100%);
+        }
+        
+        /* Rayo de Luz (Beam) */
+        .loot-beam {
+            background: linear-gradient(to top, rgba(255, 187, 0, 0.6) 0%, rgba(255, 187, 0, 0) 80%);
+            box-shadow: 0 0 30px rgba(255, 187, 0, 0.3);
+        }
+
+        /* Utilidad para gradiente radial centrado */
+        .radial-gradient-center {
+            background: radial-gradient(circle at center, rgba(255,187,0,0.3) 0%, rgba(0,0,0,0) 70%);
         }
     </style>
 </head>
-
 <body>
 
     <!-- Canvas para el fondo táctico/estrellas -->
@@ -378,206 +222,240 @@
     <!-- Canvas para partículas de fuego en la revelación -->
     <canvas id="fire-overlay"></canvas>
 
-    <!-- CONTROL DE VOLUMEN -->
-    <div id="volume-control"
-        class="fixed top-4 right-4 z-[60] flex items-center bg-black/80 p-2 rounded-lg border border-yellow-500/50 backdrop-blur-md shadow-[0_0_15px_rgba(255,187,0,0.3)] transition-all hover:scale-105">
-        <i id="vol-icon"
-            class="fa-solid fa-volume-low text-yellow-500 mr-3 w-4 text-center text-lg drop-shadow-[0_0_5px_rgba(255,187,0,0.8)]"></i>
-        <input type="range" id="vol-slider" min="0" max="1" step="0.05" value="0.2"
-            class="accent-yellow-500 w-24 h-1 bg-gray-600 rounded-lg appearance-none">
+    <!-- CONTROL DE VOLUMEN FLOTANTE Y NO INTRUSIVO -->
+    <!-- CORRECCIÓN: top-24 para bajarlo del HUD, opacity-30 para que no estorbe, hover:opacity-100 para interactuar -->
+    <div id="volume-control" class="fixed top-24 right-4 z-[60] flex items-center bg-black/60 p-2 rounded-lg border border-yellow-500/30 backdrop-blur-sm shadow-md transition-all duration-300 opacity-30 hover:opacity-100 hover:bg-black/90 hover:border-yellow-500 hover:shadow-[0_0_15px_rgba(255,187,0,0.4)]">
+        <i id="vol-icon" class="fa-solid fa-volume-low text-yellow-500 mr-2 w-4 text-center text-sm"></i>
+        <input type="range" id="vol-slider" min="0" max="1" step="0.05" value="0.2" class="accent-yellow-500 w-20 h-1 bg-gray-600 rounded-lg appearance-none">
     </div>
 
     <!-- PANTALLA 1: LOBBY / INICIO -->
-    <div id="screen-start" class="screen z-50 bg-black/90">
-        <div class="text-center p-6 w-full max-w-2xl">
-            <div class="mb-10 relative inline-block">
-                <i
-                    class="fa-solid fa-parachute-box text-7xl text-yellow-500 animate-bounce drop-shadow-[0_0_15px_rgba(255,187,0,0.6)]"></i>
-                <!-- Círculo pulsante detrás del ícono -->
-                <div
-                    class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-yellow-500/20 rounded-full animate-ping -z-10">
-                </div>
-            </div>
+    <div id="screen-start" class="screen z-50 bg-black/95 overflow-hidden">
+        <!-- ELEMENTOS HUD (Interfaz Táctica) - Esquinas -->
+        <div class="absolute top-4 left-4 w-12 h-12 border-l-4 border-t-4 border-yellow-500/80 rounded-tl-lg z-0"></div>
+        <div class="absolute top-4 right-4 w-12 h-12 border-r-4 border-t-4 border-yellow-500/80 rounded-tr-lg z-0"></div>
+        <div class="absolute bottom-4 left-4 w-12 h-12 border-l-4 border-b-4 border-yellow-500/80 rounded-bl-lg z-0"></div>
+        <div class="absolute bottom-4 right-4 w-12 h-12 border-r-4 border-b-4 border-yellow-500/80 rounded-br-lg z-0"></div>
 
-            <h1 class="font-ops mb-4 text-white uppercase tracking-wider glitch" data-text="BATTLE ROYALE">
+        <!-- Decoración lateral estilo "Carga de Datos" -->
+        <div class="absolute left-0 top-1/2 transform -translate-y-1/2 w-1 h-32 bg-gradient-to-b from-transparent via-yellow-600 to-transparent opacity-50"></div>
+        <div class="absolute right-0 top-1/2 transform -translate-y-1/2 w-1 h-32 bg-gradient-to-b from-transparent via-yellow-600 to-transparent opacity-50"></div>
+
+        <div class="text-center p-6 w-full max-w-2xl relative z-10 flex flex-col items-center justify-center h-full">
+            
+            <!-- Icono con ANILLOS DE RADAR animados -->
+            <div class="mb-6 relative inline-block">
+                <!-- Anillo exterior girando lento -->
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 border border-yellow-500/20 rounded-full animate-[spin_10s_linear_infinite]"></div>
+                <!-- Anillo interior girando rápido opuesto -->
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-36 h-36 border-2 border-dashed border-yellow-500/40 rounded-full animate-[spin_4s_linear_infinite_reverse]"></div>
+                <!-- Icono principal -->
+                <i class="fa-solid fa-parachute-box text-6xl md:text-7xl text-yellow-500 drop-shadow-[0_0_20px_rgba(255,187,0,0.8)] relative z-20 animate-bounce"></i>
+            </div>
+            
+            <!-- TÍTULO FREE FIRE ESTILO ORIGINAL (Italic + Skew + Shadow Duro) -->
+            <h1 class="font-ops text-[15vw] md:text-9xl leading-none text-white uppercase italic transform -skew-x-12 glitch drop-shadow-[4px_4px_0_black]" data-text="FREE FIRE">
                 FREE <span class="text-yellow-500">FIRE</span>
             </h1>
-            <h2
-                class="text-gray-300 text-lg md:text-2xl tracking-[0.2em] mb-16 font-ops border-b border-yellow-500/50 inline-block pb-2">
-                OPERACIÓN CUMPLEAÑOS
-            </h2>
+            
+            <!-- SUBTÍTULO TIPO PLACA MILITAR -->
+            <div class="mt-4 mb-12 transform -skew-x-12 bg-yellow-900/30 border-l-4 border-yellow-500 px-4 py-1 inline-block backdrop-blur-sm">
+                <h2 class="text-yellow-100 text-sm md:text-2xl tracking-[0.3em] font-ops transform skew-x-0">
+                    OPERACION CUMPLEAÑOS
+                </h2>
+            </div>
 
-            <!-- Botón de Inicio Mejorado -->
-            <button onclick="startGame()" class="btn-ff px-12 py-5 text-2xl text-black relative group">
-                <span class="relative z-10"><i class="fa-solid fa-play mr-2"></i> INICIAR MISIÓN</span>
-                <div class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <!-- Botón de Inicio con efecto "PRESS START" -->
+            <button onclick="startGame()" class="btn-ff w-full max-w-xs py-5 text-2xl text-black relative group overflow-hidden shadow-[0_0_20px_rgba(255,187,0,0.4)]">
+                <!-- Brillo pasante -->
+                <div class="absolute top-0 left-[-100%] w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:animate-[ping_1s_ease-in-out_infinite]"></div>
+                <span class="relative z-10 flex items-center justify-center font-black italic tracking-wider">
+                    <i class="fa-solid fa-play mr-3 text-sm"></i> INICIAR
+                </span>
             </button>
-
-            <p class="mt-6 text-gray-500 text-xs font-mono animate-pulse">
-                <i class="fa-solid fa-wifi mr-1"></i> CONECTANDO AL SERVIDOR...
-            </p>
+            
+            <!-- Indicadores de conexión al pie -->
+            <div class="absolute bottom-10 flex space-x-4 text-[10px] md:text-xs text-gray-500 font-mono">
+                <p class="flex items-center"><span class="w-2 h-2 bg-green-500 rounded-full mr-1 animate-pulse"></span> SERVER: LATAM</p>
+                <p class="flex items-center"><i class="fa-solid fa-wifi mr-1 animate-pulse"></i> PING: 15ms</p>
+            </div>
         </div>
     </div>
 
     <!-- PANTALLA 2: EL AIRDROP (CAJA DE SUMINISTROS) -->
-    <div id="screen-drop" class="screen hidden z-40">
-        <div class="text-center w-full max-w-md p-4">
-            <h2 class="font-ops text-3xl md:text-4xl text-yellow-400 mb-10 drop-shadow-lg uppercase tracking-wider">
-                <i class="fa-solid fa-triangle-exclamation mr-2"></i> Suministro Aliado
-            </h2>
+    <div id="screen-drop" class="screen hidden z-40 overflow-hidden">
+        <!-- Rayo de luz épico de fondo (Detrás de todo) -->
+        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 md:w-48 h-[150vh] loot-beam blur-xl -z-10 animate-pulse"></div>
+        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 md:w-16 h-[150vh] bg-yellow-300/30 blur-md -z-10"></div>
 
-            <!-- La Caja (Airdrop) Mejorada -->
-            <div id="loot-box" class="airdrop-box mx-auto w-64 h-64 relative cursor-pointer group" onclick="openLoot()">
-
-                <!-- Haz de luz (Beacon) -->
-                <div class="beacon-light"></div>
-                <div class="beacon-core"></div>
-
-                <!-- Representación CSS de una caja de drop -->
-                <div
-                    class="w-full h-full bg-blue-700 border-4 border-yellow-400 relative shadow-[0_0_60px_rgba(0,100,255,0.5)] flex items-center justify-center loot-face transition-transform group-hover:scale-105">
-
-                    <!-- Bandas de la caja -->
-                    <div class="absolute top-0 left-0 w-full h-4 bg-yellow-400/80 shadow-[0_0_10px_gold]"></div>
-                    <div class="absolute bottom-0 left-0 w-full h-4 bg-black/60"></div>
-
-                    <!-- Centro con calavera -->
-                    <div
-                        class="w-48 h-48 border-2 border-dashed border-white/40 flex items-center justify-center bg-black/10 backdrop-blur-sm">
-                        <i class="fa-solid fa-skull-crossbones text-7xl text-white/90 drop-shadow-md"></i>
-                    </div>
-
-                    <!-- Luz de baliza roja -->
-                    <div
-                        class="absolute -top-6 right-6 w-3 h-20 bg-gradient-to-t from-red-600 to-transparent animate-pulse opacity-80">
-                    </div>
-                    <div class="absolute -top-8 right-5 w-5 h-5 bg-red-600 rounded-full animate-ping"></div>
+        <div class="text-center w-full max-w-md p-4 flex flex-col items-center relative z-10 h-full justify-center">
+            
+            <!-- Título Flotante -->
+            <div class="mb-8 absolute top-[10%] w-full animate-bounce">
+                <h2 class="font-ops text-3xl md:text-5xl text-yellow-400 drop-shadow-[0_4px_0_black] uppercase tracking-wider skew-x-[-10deg]">
+                    <i class="fa-solid fa-gift mr-2"></i> BOTÍN CAÍDO
+                </h2>
+            </div>
+            
+            <!-- Contenedor del Airdrop (Animación Flotante) -->
+            <div id="loot-box" class="airdrop-box relative cursor-pointer group mt-10" onclick="openLoot()">
+                
+                <!-- Paracaídas (Conectado visualmente) -->
+                <div class="absolute -top-[140px] left-1/2 -translate-x-1/2 z-0">
+                    <!-- Icono Paracaídas -->
+                    <i class="fa-solid fa-parachute-box text-[9rem] text-white/90 drop-shadow-2xl"></i>
+                    <!-- Cuerdas (Lineas CSS) -->
+                    <div class="absolute bottom-4 left-4 w-[2px] h-[60px] bg-white/50 origin-top rotate-[15deg]"></div>
+                    <div class="absolute bottom-4 right-4 w-[2px] h-[60px] bg-white/50 origin-top rotate-[-15deg]"></div>
                 </div>
 
-                <!-- Paracaídas (Icono) -->
-                <div class="absolute -top-32 left-1/2 transform -translate-x-1/2 text-white/90 drop-shadow-xl z-10">
-                    <i class="fa-solid fa-parachute-box text-8xl"></i>
+                <!-- LA CAJA (Mobile First: Tamaño relativo vw para llenar pantalla de cel) -->
+                <div class="w-[65vw] h-[65vw] max-w-[280px] max-h-[280px] bg-blue-700 border-[6px] border-yellow-400 relative shadow-[0_0_80px_rgba(0,100,255,0.8)] flex items-center justify-center loot-face rounded-lg z-10">
+                    
+                    <!-- Textura Metálica / Bandas -->
+                    <div class="absolute top-0 left-0 w-full h-8 bg-yellow-500/90 shadow-lg border-b border-white/20"></div>
+                    <div class="absolute bottom-0 left-0 w-full h-8 bg-black/60 border-t border-white/10"></div>
+                    
+                    <!-- Esquinas reforzadas -->
+                    <div class="absolute top-0 left-0 w-4 h-4 bg-yellow-200"></div>
+                    <div class="absolute top-0 right-0 w-4 h-4 bg-yellow-200"></div>
+                    <div class="absolute bottom-0 left-0 w-4 h-4 bg-yellow-600"></div>
+                    <div class="absolute bottom-0 right-0 w-4 h-4 bg-yellow-600"></div>
+
+                    <!-- Centro con calavera brillante -->
+                    <div class="w-[70%] h-[70%] border-4 border-dashed border-white/30 flex items-center justify-center bg-black/20 backdrop-blur-sm rounded">
+                         <i class="fa-solid fa-skull-crossbones text-7xl md:text-8xl text-white drop-shadow-[0_0_15px_white]"></i>
+                    </div>
+                    
+                    <!-- Luz de baliza roja (Antena) -->
+                    <div class="absolute -top-12 -right-2 w-2 h-24 bg-gray-400"></div>
+                    <div class="absolute -top-14 -right-3 w-4 h-4 bg-red-600 rounded-full animate-ping shadow-[0_0_20px_red]"></div>
+                    <div class="absolute -top-14 -right-3 w-4 h-4 bg-red-500 rounded-full"></div>
                 </div>
             </div>
 
-            <p
-                class="mt-16 text-xl font-bold animate-pulse text-white font-ops tracking-widest bg-black/50 inline-block px-4 py-2 rounded">
-                [ TOCA LA CAJA ]
-            </p>
+            <!-- Instrucción Táctil (Huella digital) -->
+            <div class="mt-16 relative">
+                <div class="animate-pulse flex flex-col items-center">
+                    <i class="fa-solid fa-fingerprint text-5xl text-yellow-500 mb-2 opacity-80"></i>
+                    <p class="text-xl font-bold text-white font-ops tracking-[0.2em] bg-black/60 px-6 py-2 rounded-full border border-yellow-500/30">
+                        TOCA PARA ABRIR
+                    </p>
+                </div>
+                <!-- Flechas indicadoras -->
+                <div class="absolute -top-8 left-1/2 -translate-x-1/2 w-full flex justify-center space-x-20 opacity-50">
+                     <i class="fa-solid fa-chevron-up text-yellow-500 animate-bounce"></i>
+                     <i class="fa-solid fa-chevron-up text-yellow-500 animate-bounce"></i>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- PANTALLA 3: LA INVITACIÓN (BOOYAH) -->
+    <!-- PANTALLA 3: LA INVITACIÓN (BOOYAH) - MOBILE FIRST & VISUAL UPGRADE -->
+    <!-- CORRECCIÓN: Agregado !justify-start para forzar inicio superior -->
     <div id="screen-invite" class="screen hidden z-30 overflow-y-auto py-10 !justify-start">
-        <div class="card-glass w-11/12 max-w-lg p-6 md:p-8 text-center relative mt-16 mb-10">
+        <!-- Fondo de victoria (Resplandor dorado central) -->
+        <!-- CORRECCIÓN: Cambiado de absolute a fixed top-0 left-0 para garantizar cobertura total sin scroll -->
+        <div class="fixed top-0 left-0 w-full h-full bg-yellow-500/10 radial-gradient-center z-0 pointer-events-none"></div>
 
-            <!-- Header Booyah -->
-            <div class="absolute -top-120 left-1/2 transform -translate-x-1/2 w-full">
-                <h1 class="font-ops text-6xl md:text-8xl text-yellow-500 tracking-tighter drop-shadow-[0_0_20px_rgba(255,187,0,0.6)]"
+        <!-- CORRECCIÓN TÉCNICA: Wrapper relativo para contener título y tarjeta juntos sin recorte -->
+        <div class="relative w-full max-w-lg mt-32 mb-10 flex flex-col items-center">
+            
+            <!-- Header Booyah (MOVIDO FUERA DE LA TARJETA PARA EVITAR CLIP-PATH) -->
+            <div class="absolute -top-12 md:-top-20 left-1/2 transform -translate-x-1/2 w-full z-50 text-center pointer-events-none">
+                <h1 class="font-ops text-[20vw] md:text-9xl text-yellow-500 italic tracking-tighter drop-shadow-[0_5px_0_rgba(0,0,0,1)] rotate-[-5deg] animate-[pulse_2s_infinite]" 
                     style="-webkit-text-stroke: 2px black;">
                     BOOYAH!
                 </h1>
             </div>
 
-            <div class="mt-28 mb-4 flex justify-center items-center relative w-full h-32 md:h-48">
-                <!-- Rango con edad -->
-                <div class="relative drop-shadow-[0_0_20px_rgba(255,215,0,0.6)] flex items-center justify-center">
-                    <!-- Escudo adaptable: Reducido para evitar corte en móvil -->
-                    <i class="fa-solid fa-shield-halved text-[6rem] md:text-[10rem] text-yellow-600"></i>
-
-                    <!-- Número centrado -->
-                    <div class="absolute inset-0 flex items-center justify-center pt-1 md:pt-2">
-                        <span
-                            class="font-ops text-5xl md:text-7xl text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">9</span>
-                    </div>
-                </div>
-            </div>
-
-            <h2 class="font-ops text-4xl text-white mb-1 uppercase fire-text tracking-wider">DAVID</h2>
-            <div class="flex items-center justify-center space-x-2 mb-6">
-                <div class="h-[2px] w-8 bg-yellow-500"></div>
-                <p class="text-gray-300 uppercase tracking-widest text-xs font-bold">Nivel Heroico Desbloqueado</p>
-                <div class="h-[2px] w-8 bg-yellow-500"></div>
-            </div>
-
-            <!-- Datos de la Fiesta -->
-            <div
-                class="border border-yellow-500/20 py-5 px-4 mb-6 space-y-5 text-left bg-black/40 rounded-lg shadow-inner">
-
-                <div class="flex items-center space-x-4 group">
-                    <div
-                        class="bg-gradient-to-br from-yellow-600 to-yellow-800 p-3 rounded shadow-lg text-white group-hover:scale-110 transition-transform">
-                        <i class="fa-regular fa-calendar-check text-xl"></i>
-                    </div>
-                    <div>
-                        <p class="text-[10px] text-yellow-500 uppercase tracking-widest font-bold">Fecha de Misión</p>
-                        <p class="font-bold text-lg text-white" id="info-date">Cargando...</p>
+            <!-- La Tarjeta (Sin mt-32 porque ahora lo tiene el wrapper padre) -->
+            <div class="card-glass w-[90%] p-6 md:p-8 text-center relative border-t-4 border-yellow-500 shadow-[0_0_50px_rgba(255,187,0,0.2)] z-10">
+                
+                <div class="mt-8 md:mt-12 mb-6 flex justify-center relative z-10">
+                    <!-- Rango con edad (Efecto Heroico) -->
+                    <div class="relative drop-shadow-[0_0_25px_rgba(255,215,0,0.6)] group">
+                        <!-- Resplandor rotatorio detrás del escudo -->
+                        <div class="absolute inset-0 bg-yellow-500/30 rounded-full blur-xl animate-[spin_5s_linear_infinite]"></div>
+                        
+                        <i class="fa-solid fa-shield-halved text-8xl md:text-9xl text-yellow-500 relative z-10"></i>
+                        
+                        <div class="absolute inset-0 flex items-center justify-center pt-2 md:pt-3 z-20">
+                            <span class="font-ops text-6xl md:text-7xl text-white drop-shadow-md">9</span>
+                        </div>
+                        <!-- Alas de rango (Decorativo CSS) -->
+                        <div class="absolute top-1/2 left-[-40px] w-12 h-20 border-r-4 border-yellow-500/50 skew-y-[30deg] opacity-50"></div>
+                        <div class="absolute top-1/2 right-[-40px] w-12 h-20 border-l-4 border-yellow-500/50 skew-y-[-30deg] opacity-50"></div>
                     </div>
                 </div>
 
-                <div class="flex items-center space-x-4 group">
-                    <div
-                        class="bg-gradient-to-br from-yellow-600 to-yellow-800 p-3 rounded shadow-lg text-white group-hover:scale-110 transition-transform">
-                        <i class="fa-regular fa-clock text-xl"></i>
+                <h2 class="font-ops text-4xl md:text-5xl text-white mb-2 uppercase fire-text tracking-widest drop-shadow-md">DAVID</h2>
+                
+                <div class="flex items-center justify-center space-x-4 mb-8 opacity-90">
+                    <div class="h-[1px] w-12 bg-gradient-to-r from-transparent to-yellow-500"></div>
+                    <p class="text-yellow-200 uppercase tracking-widest text-[10px] md:text-xs font-bold bg-black/50 px-3 py-1 rounded border border-yellow-500/30">
+                        NIVEL HEROICO
+                    </p>
+                    <div class="h-[1px] w-12 bg-gradient-to-l from-transparent to-yellow-500"></div>
+                </div>
+
+                <!-- Datos de la Fiesta (Estilo Estadísticas de Partida) -->
+                <div class="space-y-4 text-left mb-8">
+                    <!-- Fecha -->
+                    <div class="bg-gradient-to-r from-black/80 to-black/40 border-l-4 border-yellow-600 p-3 flex items-center space-x-4 transform transition-all hover:translate-x-2">
+                        <div class="text-yellow-500 text-2xl w-10 text-center"><i class="fa-regular fa-calendar-days"></i></div>
+                        <div>
+                            <p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">FECHA DE MISIÓN</p>
+                            <p class="font-bold text-lg text-white font-mono" id="info-date">Cargando...</p>
+                        </div>
                     </div>
-                    <div>
-                        <p class="text-[10px] text-yellow-500 uppercase tracking-widest font-bold">Hora de Despliegue
-                        </p>
-                        <p class="font-bold text-lg text-white" id="info-time">Cargando...</p>
+
+                    <!-- Hora -->
+                    <div class="bg-gradient-to-r from-black/80 to-black/40 border-l-4 border-yellow-500 p-3 flex items-center space-x-4 transform transition-all hover:translate-x-2">
+                        <div class="text-yellow-500 text-2xl w-10 text-center"><i class="fa-regular fa-clock"></i></div>
+                        <div>
+                            <p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">HORA DE DESPLIEGUE</p>
+                            <p class="font-bold text-lg text-white font-mono" id="info-time">Cargando...</p>
+                        </div>
+                    </div>
+
+                    <!-- Lugar -->
+                    <div class="bg-gradient-to-r from-black/80 to-black/40 border-l-4 border-yellow-400 p-3 flex items-center space-x-4 transform transition-all hover:translate-x-2">
+                        <div class="text-yellow-500 text-2xl w-10 text-center"><i class="fa-solid fa-map-location-dot"></i></div>
+                        <div>
+                            <p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">ZONA SEGURA</p>
+                            <p class="font-bold text-md text-white font-mono leading-tight" id="info-address">Cargando...</p>
+                        </div>
                     </div>
                 </div>
 
-                <div class="flex items-center space-x-4 group">
-                    <div
-                        class="bg-gradient-to-br from-yellow-600 to-yellow-800 p-3 rounded shadow-lg text-white group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-map-location-dot text-xl"></i>
-                    </div>
-                    <div>
-                        <p class="text-[10px] text-yellow-500 uppercase tracking-widest font-bold">Zona Segura</p>
-                        <p class="font-bold text-lg text-white leading-tight" id="info-address">Cargando...</p>
-                    </div>
+                <!-- Botones de Acción (Estilo Botones de Lobby) -->
+                <div class="grid grid-cols-1 gap-4">
+                    <button onclick="confirmAssist()" class="btn-ff w-full py-4 text-black font-black text-xl tracking-wider flex items-center justify-center space-x-3 shadow-[0_5px_15px_rgba(255,187,0,0.4)] active:scale-95 transition-transform">
+                        <i class="fa-brands fa-whatsapp text-2xl"></i>
+                        <span>CONFIRMAR</span>
+                    </button>
+                    
+                    <button onclick="openMap()" class="w-full bg-gray-900 border border-yellow-500/50 text-yellow-500 py-3 font-bold uppercase tracking-wider hover:bg-yellow-500 hover:text-black transition-colors flex items-center justify-center space-x-2 rounded active:scale-95">
+                        <i class="fa-solid fa-location-arrow"></i>
+                        <span>VER MAPA</span>
+                    </button>
                 </div>
+
+                <p class="mt-8 text-[9px] text-gray-600 font-mono tracking-widest">
+                    UID: 909-009-BDAY • REGIÓN: PUEBLA
+                </p>
             </div>
-
-            <!-- Botones de Acción -->
-            <div class="space-y-3">
-                <button onclick="confirmAssist()"
-                    class="w-full btn-ff py-3 text-black font-bold text-lg flex items-center justify-center space-x-2 transform hover:-translate-y-1 transition-transform">
-                    <i class="fa-brands fa-whatsapp text-xl"></i>
-                    <span>CONFIRMAR ASISTENCIA</span>
-                </button>
-
-                <button onclick="openMap()"
-                    class="w-full border-2 border-yellow-500 text-yellow-500 py-3 font-bold hover:bg-yellow-500 hover:text-black transition-colors flex items-center justify-center space-x-2 rounded clip-path-polygon">
-                    <i class="fa-solid fa-location-arrow"></i>
-                    <span>VER UBICACIÓN</span>
-                </button>
-            </div>
-
-            <p class="mt-8 text-[10px] text-gray-500 font-mono opacity-70">
-                // SISTEMA: TRAE TU MEJOR SKIN. NO FALTES O PERDERÁS RANGO.
-            </p>
         </div>
     </div>
 
     <!-- ELEMENTOS DE AUDIO (Gestionados por JS) -->
     <audio id="bg-music" loop preload="auto"></audio>
-    <audio id="sfx-click" preload="auto">
-        <source src="https://codeskulptor-demos.commondatastorage.googleapis.com/click.mp3" type="audio/mp3">
-    </audio>
-    <audio id="sfx-open" preload="auto">
-        <source src="https://actions.google.com/sounds/v1/science_fiction/scifi_laser.ogg" type="audio/ogg">
-    </audio>
-    <audio id="sfx-booyah" preload="auto">
-        <source src="https://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/bonus.wav"
-            type="audio/wav">
-    </audio>
-    <audio id="sfx-wind" loop preload="auto">
-        <source src="https://actions.google.com/sounds/v1/weather/wind_blowing_strong.ogg" type="audio/ogg">
-    </audio>
-    <audio id="sfx-fire" loop preload="auto">
-        <source src="https://actions.google.com/sounds/v1/ambiences/fire.ogg" type="audio/ogg">
-    </audio>
+    <audio id="sfx-click" preload="auto"><source src="https://nu.vgmtreasurechest.com/soundtracks/garena-free-fire-classic-original-game-soundtrack-2020-android-ios/moixpiua/08.%20Free%20Fire%20-%20Booyah%21.mp3" type="audio/mp3"></audio>
+    <audio id="sfx-open" preload="auto"><source src="https://actions.google.com/sounds/v1/science_fiction/scifi_laser.ogg" type="audio/ogg"></audio>
+    <audio id="sfx-booyah" preload="auto"><source src="https://nu.vgmtreasurechest.com/soundtracks/garena-free-fire-classic-original-game-soundtrack-2020-android-ios/pfgocwzh/07.%20Free%20Fire%20-%20Let%20the%20Battle%20Begin.mp3" type="audio/mp3"></audio>
+    <audio id="sfx-wind" loop preload="auto"><source src="https://actions.google.com/sounds/v1/weather/wind_blowing_strong.ogg" type="audio/ogg"></audio>
+    <audio id="sfx-fire" loop preload="auto"><source src="https://actions.google.com/sounds/v1/ambiences/fire.ogg" type="audio/ogg"></audio>
 
 
     <script>
@@ -587,12 +465,12 @@
         const CONFIGURACION = {
             // ENLACE DE MÚSICA DE FONDO:
             // Pega aquí el enlace directo a tu archivo MP3 (debe terminar en .mp3)
-            musicaFondo: "https://nu.vgmtreasurechest.com/soundtracks/garena-free-fire-classic-original-game-soundtrack-2020-android-ios/moixpiua/08.%20Free%20Fire%20-%20Booyah%21.mp3",
-
+            // musicaFondo: "https://nu.vgmtreasurechest.com/soundtracks/garena-free-fire-classic-original-game-soundtrack-2020-android-ios/moixpiua/08.%20Free%20Fire%20-%20Booyah%21.mp3", 
+            
             // DATOS DE WHATSAPP:
             telefono: "522311576228", // Tu número con código de país
             mensajeConfirmacion: "¡Hola! Confirmo mi asistencia al cumpleaños de David. Mi nombre es: ",
-
+            
             // DATOS DEL MAPA:
             linkMapa: "https://share.google/cUb8p7q7XV94e3xAB", // Enlace de Google Maps
 
@@ -604,7 +482,7 @@
 
 
         /* --- INICIALIZACIÓN DE DATOS --- */
-
+        
         // Cargar música desde la configuración
         document.getElementById('bg-music').src = CONFIGURACION.musicaFondo;
 
@@ -636,13 +514,13 @@
 
         function updateVolume(value) {
             allAudio.forEach(audio => { audio.volume = value; });
-
+            
             if (value == 0) {
                 volIcon.className = "fa-solid fa-volume-xmark text-gray-500 mr-3 w-4 text-center text-lg";
             } else if (value < 0.5) {
-                volIcon.className = "fa-solid fa-volume-low text-yellow-500 mr-3 w-4 text-center text-lg drop-shadow-[0_0_5px_rgba(255,187,0,0.8)]";
+                volIcon.className = "fa-solid fa-volume-low text-yellow-500 mr-2 w-4 text-center text-sm drop-shadow-[0_0_5px_rgba(255,187,0,0.8)]";
             } else {
-                volIcon.className = "fa-solid fa-volume-high text-yellow-500 mr-3 w-4 text-center text-lg drop-shadow-[0_0_5px_rgba(255,187,0,0.8)]";
+                volIcon.className = "fa-solid fa-volume-high text-yellow-500 mr-2 w-4 text-center text-sm drop-shadow-[0_0_5px_rgba(255,187,0,0.8)]";
             }
         }
 
@@ -658,6 +536,14 @@
             }
         }
 
+        // NUEVA FUNCIÓN: DETENER TODO EL AUDIO
+        function stopAllAudio() {
+            allAudio.forEach(audio => {
+                audio.pause();
+                audio.currentTime = 0; // Reiniciar al principio
+            });
+        }
+
         function startGame() {
             safePlay(sfxClick);
             safePlay(bgMusic);
@@ -665,7 +551,7 @@
 
             screenStart.classList.add('hidden');
             screenStart.style.opacity = 0;
-
+            
             setTimeout(() => {
                 screenStart.style.display = 'none';
                 screenDrop.classList.remove('hidden');
@@ -676,7 +562,7 @@
         let isOpening = false;
 
         function openLoot() {
-            if (isOpening) return;
+            if(isOpening) return;
             isOpening = true;
 
             lootBox.classList.remove('airdrop-box');
@@ -686,11 +572,11 @@
 
             setTimeout(() => {
                 screenDrop.style.opacity = 0;
-
+                
                 setTimeout(() => {
                     screenDrop.style.display = 'none';
                     screenInvite.classList.remove('hidden');
-
+                    
                     safePlay(sfxBooyah);
                     safePlay(sfxFire);
                     startFireParticles();
@@ -699,16 +585,20 @@
         }
 
         function confirmAssist() {
+            // CORRECCIÓN: Detener audio al confirmar
+            stopAllAudio();
             window.open(`https://wa.me/${CONFIGURACION.telefono}?text=${encodeURIComponent(CONFIGURACION.mensajeConfirmacion)}`, '_blank');
         }
 
         function openMap() {
+            // CORRECCIÓN: Detener audio al ver mapa
+            stopAllAudio();
             window.open(CONFIGURACION.linkMapa, '_blank');
         }
 
 
         /* --- EFECTOS VISUALES (CANVAS) --- */
-
+        
         // 1. Fondo Táctico
         const canvasBg = document.getElementById('bg-canvas');
         const ctxBg = canvasBg.getContext('2d');
@@ -723,82 +613,49 @@
             fireCanvas.height = height;
         }
         window.addEventListener('resize', resize);
-
+        
         let offset = 0;
-
-        // Generador de humo simple
-        const smokeParticles = [];
-        for (let i = 0; i < 15; i++) {
-            smokeParticles.push({
-                x: Math.random() * window.innerWidth,
-                y: Math.random() * window.innerHeight,
-                radius: 50 + Math.random() * 100,
-                vx: (Math.random() - 0.5) * 0.5,
-                vy: (Math.random() - 0.5) * 0.2
-            });
-        }
-
-        function drawSmoke(ctx) {
-            ctx.fillStyle = 'rgba(200, 200, 200, 0.02)';
-            for (let p of smokeParticles) {
-                p.x += p.vx;
-                p.y += p.vy;
-
-                // Wrap around screen
-                if (p.x < -100) p.x = width + 100;
-                if (p.x > width + 100) p.x = -100;
-                if (p.y < -100) p.y = height + 100;
-                if (p.y > height + 100) p.y = -100;
-
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
         function drawBg() {
             // Fondo oscuro con gradiente
             const gradient = ctxBg.createLinearGradient(0, 0, 0, height);
-            gradient.addColorStop(0, '#0a0a0a');
+            gradient.addColorStop(0, '#1a1a1a');
             gradient.addColorStop(1, '#000000');
             ctxBg.fillStyle = gradient;
             ctxBg.fillRect(0, 0, width, height);
-
-            // Humo/Niebla ambiental
-            drawSmoke(ctxBg);
-
+            
             // Grid Táctico
-            ctxBg.strokeStyle = 'rgba(255, 187, 0, 0.03)'; // Más sutil
+            ctxBg.strokeStyle = 'rgba(255, 187, 0, 0.05)'; // Amarillo muy tenue
             ctxBg.lineWidth = 1;
 
             offset = (offset + 0.2) % 50;
-
+            
             for (let x = 0; x < width; x += 50) {
                 ctxBg.beginPath();
                 ctxBg.moveTo(x, 0);
                 ctxBg.lineTo(x, height);
                 ctxBg.stroke();
             }
+            
+            // Líneas horizontales en movimiento (Efecto escáner)
+            for (let y = offset; y < height; y += 50) {
+                ctxBg.beginPath();
+                ctxBg.moveTo(0, y);
+                ctxBg.lineTo(width, y);
+                ctxBg.stroke();
+            }
 
-            // Radar central (Ping)
-            const time = Date.now() / 1000;
-            const radius = (time * 50) % 300;
-            const alpha = 1 - (radius / 300);
-
-            ctxBg.strokeStyle = `rgba(255, 187, 0, ${alpha * 0.2})`;
+            // Radar central
+            ctxBg.strokeStyle = 'rgba(255, 187, 0, 0.1)';
             ctxBg.beginPath();
-            ctxBg.arc(width / 2, height / 2, radius, 0, Math.PI * 2);
+            ctxBg.arc(width/2, height/2, 150, 0, Math.PI * 2);
             ctxBg.stroke();
-
-            // Elementos fijos del radar
-            ctxBg.strokeStyle = 'rgba(255, 187, 0, 0.05)';
             ctxBg.beginPath();
-            ctxBg.arc(width / 2, height / 2, 150, 0, Math.PI * 2);
+            ctxBg.arc(width/2, height/2, 100, 0, Math.PI * 2);
             ctxBg.stroke();
 
             requestAnimationFrame(drawBg);
         }
-
+        
         // 2. Partículas de Fuego
         const fireCanvas = document.getElementById('fire-overlay');
         const ctxFire = fireCanvas.getContext('2d');
@@ -808,22 +665,19 @@
             constructor() {
                 this.x = Math.random() * width;
                 this.y = height + Math.random() * 50;
-                // Velocidad variable: algunas suben rápido (chispas), otras lento (brasas)
-                this.type = Math.random() > 0.8 ? 'spark' : 'ember';
-                this.speedY = this.type === 'spark' ? Math.random() * 5 + 4 : Math.random() * 2 + 1;
-                this.speedX = (Math.random() - 0.5) * 2;
-                this.size = this.type === 'spark' ? Math.random() * 2 + 1 : Math.random() * 4 + 2;
-
-                const yellowVar = Math.floor(Math.random() * 155) + 100; // 100-255
-                this.color = `rgba(255, ${yellowVar}, 0,`;
+                this.speedY = Math.random() * 3 + 2;
+                this.speedX = (Math.random() - 0.5) * 1.5;
+                this.size = Math.random() * 6 + 2;
+                // Colores entre rojo y amarillo
+                const red = 255;
+                const green = Math.floor(Math.random() * 180); 
+                this.color = `rgba(${red}, ${green}, 0,`; // Alpha se añade al dibujar
                 this.alpha = 1;
-                this.decay = Math.random() * 0.01 + 0.005;
-                this.wobble = Math.random() * Math.PI * 2;
+                this.decay = Math.random() * 0.015 + 0.005;
             }
             update() {
                 this.y -= this.speedY;
-                this.wobble += 0.1;
-                this.x += Math.sin(this.wobble) * 0.5 + this.speedX; // Movimiento oscilante
+                this.x += this.speedX;
                 this.alpha -= this.decay;
                 if (this.alpha < 0) this.alpha = 0;
             }
@@ -863,5 +717,4 @@
 
     </script>
 </body>
-
 </html>
