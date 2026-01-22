@@ -35,6 +35,20 @@
         }
         input[type=range]::-webkit-slider-thumb {
             -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: var(--ff-yellow);
+            cursor: pointer;
+            margin-top: -6px;
+            box-shadow: 0 0 10px var(--ff-yellow);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #444;
+            border-radius: 2px;
         }
         input[type=range]:focus {
             outline: none; 
@@ -122,19 +136,21 @@
             40%, 60% { transform: translate3d(4px, 0, 0); }
         }
 
-        /* Estilo Botón Free Fire */
+        /* Estilo Botón Free Fire Mejorado */
         .btn-ff {
             background: linear-gradient(45deg, #FFBB00, #FF8800);
             border: 2px solid #fff;
             clip-path: polygon(10% 0, 100% 0, 100% 80%, 90% 100%, 0 100%, 0 20%);
             text-transform: uppercase;
-            font-weight: bold;
+            font-weight: 800;
+            letter-spacing: 1px;
             transition: all 0.3s;
-            box-shadow: 0 0 15px rgba(255, 187, 0, 0.5);
+            box-shadow: 0 0 15px rgba(255, 187, 0, 0.5), inset 0 0 10px rgba(255,255,255,0.5);
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
         }
         .btn-ff:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 25px rgba(255, 187, 0, 0.8);
+            box-shadow: 0 0 30px rgba(255, 187, 0, 0.9), inset 0 0 20px rgba(255,255,255,0.7);
         }
 
         /* Pantallas */
@@ -158,26 +174,11 @@
 
         /* Tarjeta de Invitación */
         .card-glass {
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-            border: 2px solid var(--ff-yellow);
-            box-shadow: 0 0 30px rgba(255, 187, 0, 0.3);
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--ff-yellow);
+            box-shadow: 0 0 40px rgba(255, 187, 0, 0.15);
             clip-path: polygon(5% 0, 100% 0, 100% 95%, 95% 100%, 0 100%, 0 5%);
-        }
-
-        /* Rango Heroico Badge */
-        .rank-badge {
-            width: 100px;
-            height: 100px;
-            background: url('https://cdn-icons-png.flaticon.com/512/5407/5407954.png'); /* Placeholder medal */
-            background-size: cover;
-            filter: drop-shadow(0 0 10px gold);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            color: white;
-            text-shadow: 2px 2px 0px #000;
         }
         
         .fire-text {
@@ -195,6 +196,11 @@
             pointer-events: none;
             z-index: 10;
         }
+
+        /* Mejoras en la Caja (Loot Box 3D effect) */
+        .loot-face {
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+        }
     </style>
 </head>
 <body>
@@ -204,162 +210,203 @@
     <!-- Canvas para partículas de fuego en la revelación -->
     <canvas id="fire-overlay"></canvas>
 
-    <!-- MÚSICA Y SONIDOS (ENLACES REPARADOS Y FIABLES) -->
-    <!-- Usamos fuentes de Google Actions y CodeSkulptor para garantizar carga -->
-    
-    <!-- Música de fondo: Loop de acción -->
-    <audio id="bg-music" loop preload="auto">
-        <source src="https://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/theme_01.mp3" type="audio/mp3">
-    </audio>
-    
-    <!-- Click: Sonido de UI -->
-    <audio id="sfx-click" preload="auto">
-        <source src="https://codeskulptor-demos.commondatastorage.googleapis.com/click.mp3" type="audio/mp3">
-    </audio>
-    
-    <!-- Abrir Caja: Sonido futurista -->
-    <audio id="sfx-open" preload="auto">
-        <source src="https://actions.google.com/sounds/v1/science_fiction/scifi_laser.ogg" type="audio/ogg">
-    </audio>
-    
-    <!-- Booyah: Sonido de victoria/Bonus -->
-    <audio id="sfx-booyah" preload="auto">
-        <source src="https://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/bonus.wav" type="audio/wav">
-    </audio>
-    
-    <!-- Viento: Ambiente fuerte -->
-    <audio id="sfx-wind" loop preload="auto">
-        <source src="https://actions.google.com/sounds/v1/weather/wind_blowing_strong.ogg" type="audio/ogg">
-    </audio>
-    
-    <!-- Fuego: Crepitar -->
-    <audio id="sfx-fire" loop preload="auto">
-        <source src="https://actions.google.com/sounds/v1/ambiences/fire.ogg" type="audio/ogg">
-    </audio>
-
-    <!-- CONTROL DE VOLUMEN (NUEVO) -->
-    <div id="volume-control" class="fixed top-4 right-4 z-[60] flex items-center bg-black/60 p-2 rounded border border-yellow-500/50 backdrop-blur-md shadow-[0_0_10px_rgba(255,187,0,0.2)] transition-opacity duration-300 hover:bg-black/80">
-        <i id="vol-icon" class="fa-solid fa-volume-low text-yellow-500 mr-3 w-4 text-center text-lg"></i>
-        <input type="range" id="vol-slider" min="0" max="1" step="0.05" value="0.2" class="accent-yellow-500 cursor-pointer w-24 h-1 bg-gray-700 rounded-lg appearance-none">
+    <!-- CONTROL DE VOLUMEN -->
+    <div id="volume-control" class="fixed top-4 right-4 z-[60] flex items-center bg-black/80 p-2 rounded-lg border border-yellow-500/50 backdrop-blur-md shadow-[0_0_15px_rgba(255,187,0,0.3)] transition-all hover:scale-105">
+        <i id="vol-icon" class="fa-solid fa-volume-low text-yellow-500 mr-3 w-4 text-center text-lg drop-shadow-[0_0_5px_rgba(255,187,0,0.8)]"></i>
+        <input type="range" id="vol-slider" min="0" max="1" step="0.05" value="0.2" class="accent-yellow-500 w-24 h-1 bg-gray-600 rounded-lg appearance-none">
     </div>
 
     <!-- PANTALLA 1: LOBBY / INICIO -->
     <div id="screen-start" class="screen z-50 bg-black/90">
-        <div class="text-center p-6">
-            <div class="mb-8">
-                <i class="fa-solid fa-parachute-box text-6xl text-yellow-500 animate-bounce"></i>
+        <div class="text-center p-6 w-full max-w-2xl">
+            <div class="mb-10 relative inline-block">
+                <i class="fa-solid fa-parachute-box text-7xl text-yellow-500 animate-bounce drop-shadow-[0_0_15px_rgba(255,187,0,0.6)]"></i>
+                <!-- Círculo pulsante detrás del ícono -->
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-yellow-500/20 rounded-full animate-ping -z-10"></div>
             </div>
-            <h1 class="font-ops text-5xl md:text-7xl mb-2 text-white uppercase tracking-wider glitch" data-text="BATTLE ROYALE">
+            
+            <h1 class="font-ops text-5xl md:text-8xl mb-4 text-white uppercase tracking-wider glitch" data-text="BATTLE ROYALE">
                 FREE <span class="text-yellow-500">FIRE</span>
             </h1>
-            <h2 class="text-gray-400 text-xl md:text-2xl tracking-widest mb-12 font-ops">
+            <h2 class="text-gray-300 text-lg md:text-2xl tracking-[0.2em] mb-16 font-ops border-b border-yellow-500/50 inline-block pb-2">
                 OPERACIÓN CUMPLEAÑOS
             </h2>
 
-            <!-- Nota: El click aquí es CRUCIAL para desbloquear el audio -->
-            <button onclick="startGame()" class="btn-ff px-10 py-4 text-2xl text-black animate-pulse">
-                INICIAR PARTIDA
+            <!-- Botón de Inicio Mejorado -->
+            <button onclick="startGame()" class="btn-ff px-12 py-5 text-2xl text-black relative group">
+                <span class="relative z-10"><i class="fa-solid fa-play mr-2"></i> INICIAR MISIÓN</span>
+                <div class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
             </button>
-            <p class="mt-4 text-gray-500 text-sm">Toca para conectar al servidor...</p>
+            
+            <p class="mt-6 text-gray-500 text-xs font-mono animate-pulse">
+                <i class="fa-solid fa-wifi mr-1"></i> CONECTANDO AL SERVIDOR...
+            </p>
         </div>
     </div>
 
     <!-- PANTALLA 2: EL AIRDROP (CAJA DE SUMINISTROS) -->
     <div id="screen-drop" class="screen hidden z-40">
         <div class="text-center w-full max-w-md p-4">
-            <h2 class="font-ops text-3xl text-yellow-400 mb-8 drop-shadow-lg">SUMINISTRO EN CAMINO</h2>
+            <h2 class="font-ops text-3xl md:text-4xl text-yellow-400 mb-10 drop-shadow-lg uppercase tracking-wider">
+                <i class="fa-solid fa-triangle-exclamation mr-2"></i> Suministro Aliado
+            </h2>
             
-            <!-- La Caja (Airdrop) -->
-            <div id="loot-box" class="airdrop-box mx-auto w-64 h-64 relative cursor-pointer" onclick="openLoot()">
+            <!-- La Caja (Airdrop) Mejorada -->
+            <div id="loot-box" class="airdrop-box mx-auto w-64 h-64 relative cursor-pointer group" onclick="openLoot()">
                 <!-- Representación CSS de una caja de drop -->
-                <div class="w-full h-full bg-blue-600 border-4 border-yellow-400 relative shadow-[0_0_50px_rgba(0,100,255,0.6)] flex items-center justify-center">
-                    <!-- Detalle de la caja -->
-                    <div class="absolute top-0 left-0 w-full h-4 bg-yellow-400/50"></div>
-                    <div class="absolute bottom-0 left-0 w-full h-4 bg-black/30"></div>
-                    <div class="w-48 h-48 border-2 border-dashed border-white/30 flex items-center justify-center">
-                         <i class="fa-solid fa-skull-crossbones text-6xl text-white/80"></i>
+                <div class="w-full h-full bg-blue-700 border-4 border-yellow-400 relative shadow-[0_0_60px_rgba(0,100,255,0.5)] flex items-center justify-center loot-face transition-transform group-hover:scale-105">
+                    
+                    <!-- Bandas de la caja -->
+                    <div class="absolute top-0 left-0 w-full h-4 bg-yellow-400/80 shadow-[0_0_10px_gold]"></div>
+                    <div class="absolute bottom-0 left-0 w-full h-4 bg-black/60"></div>
+                    
+                    <!-- Centro con calavera -->
+                    <div class="w-48 h-48 border-2 border-dashed border-white/40 flex items-center justify-center bg-black/10 backdrop-blur-sm">
+                         <i class="fa-solid fa-skull-crossbones text-7xl text-white/90 drop-shadow-md"></i>
                     </div>
-                    <!-- Luces parpadeantes -->
-                    <div class="absolute -top-6 right-6 w-2 h-16 bg-red-600 animate-ping"></div>
+                    
+                    <!-- Luz de baliza roja -->
+                    <div class="absolute -top-6 right-6 w-3 h-20 bg-gradient-to-t from-red-600 to-transparent animate-pulse opacity-80"></div>
+                    <div class="absolute -top-8 right-5 w-5 h-5 bg-red-600 rounded-full animate-ping"></div>
                 </div>
+                
                 <!-- Paracaídas (Icono) -->
-                <div class="absolute -top-32 left-1/2 transform -translate-x-1/2 text-white/80">
+                <div class="absolute -top-32 left-1/2 transform -translate-x-1/2 text-white/90 drop-shadow-xl">
                     <i class="fa-solid fa-parachute-box text-8xl"></i>
                 </div>
             </div>
 
-            <p class="mt-12 text-xl font-bold animate-pulse text-white">¡TOCA LA CAJA PARA ABRIR!</p>
+            <p class="mt-16 text-xl font-bold animate-pulse text-white font-ops tracking-widest bg-black/50 inline-block px-4 py-2 rounded">
+                [ TOCA LA CAJA ]
+            </p>
         </div>
     </div>
 
     <!-- PANTALLA 3: LA INVITACIÓN (BOOYAH) -->
     <div id="screen-invite" class="screen hidden z-30 overflow-y-auto py-10">
-        <div class="card-glass w-11/12 max-w-lg p-6 md:p-8 text-center relative mt-10 mb-10">
+        <div class="card-glass w-11/12 max-w-lg p-6 md:p-8 text-center relative mt-16 mb-10">
             
             <!-- Header Booyah -->
-            <div class="absolute -top-10 left-1/2 transform -translate-x-1/2 w-full">
-                <h1 class="font-ops text-6xl md:text-7xl text-yellow-500 tracking-tighter drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)]" 
+            <div class="absolute -top-12 left-1/2 transform -translate-x-1/2 w-full">
+                <h1 class="font-ops text-6xl md:text-8xl text-yellow-500 tracking-tighter drop-shadow-[0_0_20px_rgba(255,187,0,0.6)]" 
                     style="-webkit-text-stroke: 2px black;">
                     BOOYAH!
                 </h1>
             </div>
 
-            <div class="mt-12 mb-6 flex justify-center">
+            <div class="mt-14 mb-4 flex justify-center">
                 <!-- Rango con edad -->
-                <div class="relative">
-                    <i class="fa-solid fa-shield-halved text-8xl text-yellow-600 drop-shadow-lg"></i>
-                    <span class="font-ops absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-5xl text-white pt-2">9</span>
+                <div class="relative drop-shadow-[0_0_15px_rgba(255,215,0,0.5)]">
+                    <i class="fa-solid fa-shield-halved text-9xl text-yellow-600"></i>
+                    <div class="absolute inset-0 flex items-center justify-center pt-2">
+                        <span class="font-ops text-6xl text-white drop-shadow-md">9</span>
+                    </div>
                 </div>
             </div>
 
-            <h2 class="font-ops text-3xl md:text-4xl text-white mb-2 uppercase fire-text">DAVID</h2>
-            <p class="text-gray-300 mb-6 uppercase tracking-widest text-sm">Ha subido al nivel 9</p>
+            <h2 class="font-ops text-4xl text-white mb-1 uppercase fire-text tracking-wider">DAVID</h2>
+            <div class="flex items-center justify-center space-x-2 mb-6">
+                <div class="h-[2px] w-8 bg-yellow-500"></div>
+                <p class="text-gray-300 uppercase tracking-widest text-xs font-bold">Nivel Heroico Desbloqueado</p>
+                <div class="h-[2px] w-8 bg-yellow-500"></div>
+            </div>
 
-            <div class="border-t border-b border-yellow-500/30 py-4 mb-6 space-y-4 text-left bg-black/40 p-4 rounded">
-                <div class="flex items-center space-x-4">
-                    <div class="bg-yellow-600 p-2 rounded text-black"><i class="fa-regular fa-calendar-check text-xl"></i></div>
+            <!-- Datos de la Fiesta -->
+            <div class="border border-yellow-500/20 py-5 px-4 mb-6 space-y-5 text-left bg-black/40 rounded-lg shadow-inner">
+                
+                <div class="flex items-center space-x-4 group">
+                    <div class="bg-gradient-to-br from-yellow-600 to-yellow-800 p-3 rounded shadow-lg text-white group-hover:scale-110 transition-transform">
+                        <i class="fa-regular fa-calendar-check text-xl"></i>
+                    </div>
                     <div>
-                        <p class="text-xs text-gray-400 uppercase">Fecha de Misión</p>
-                        <p class="font-bold text-lg text-white">Martes, 27 de Enero</p>
+                        <p class="text-[10px] text-yellow-500 uppercase tracking-widest font-bold">Fecha de Misión</p>
+                        <p class="font-bold text-lg text-white" id="info-date">Cargando...</p>
                     </div>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <div class="bg-yellow-600 p-2 rounded text-black"><i class="fa-regular fa-clock text-xl"></i></div>
+
+                <div class="flex items-center space-x-4 group">
+                    <div class="bg-gradient-to-br from-yellow-600 to-yellow-800 p-3 rounded shadow-lg text-white group-hover:scale-110 transition-transform">
+                        <i class="fa-regular fa-clock text-xl"></i>
+                    </div>
                     <div>
-                        <p class="text-xs text-gray-400 uppercase">Hora de Despliegue</p>
-                        <p class="font-bold text-lg text-white">3:30 PM (15:30 hrs)</p>
+                        <p class="text-[10px] text-yellow-500 uppercase tracking-widest font-bold">Hora de Despliegue</p>
+                        <p class="font-bold text-lg text-white" id="info-time">Cargando...</p>
                     </div>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <div class="bg-yellow-600 p-2 rounded text-black"><i class="fa-solid fa-map-location-dot text-xl"></i></div>
+
+                <div class="flex items-center space-x-4 group">
+                    <div class="bg-gradient-to-br from-yellow-600 to-yellow-800 p-3 rounded shadow-lg text-white group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-map-location-dot text-xl"></i>
+                    </div>
                     <div>
-                        <p class="text-xs text-gray-400 uppercase">Zona Segura (Pizzas Angelotti)</p>
-                        <p class="font-bold text-lg text-white">Abasolo 211, Centro, 73800 Teziutlán.</p>
+                        <p class="text-[10px] text-yellow-500 uppercase tracking-widest font-bold">Zona Segura</p>
+                        <p class="font-bold text-lg text-white leading-tight" id="info-address">Cargando...</p>
                     </div>
                 </div>
             </div>
 
             <!-- Botones de Acción -->
             <div class="space-y-3">
-                <button onclick="confirmAssist()" class="w-full btn-ff py-3 text-black font-bold text-lg flex items-center justify-center space-x-2">
-                    <i class="fa-brands fa-whatsapp"></i>
+                <button onclick="confirmAssist()" class="w-full btn-ff py-3 text-black font-bold text-lg flex items-center justify-center space-x-2 transform hover:-translate-y-1 transition-transform">
+                    <i class="fa-brands fa-whatsapp text-xl"></i>
                     <span>CONFIRMAR ASISTENCIA</span>
                 </button>
                 
-                <button onclick="openMap()" class="w-full border border-yellow-500 text-yellow-500 py-3 font-bold hover:bg-yellow-500/20 transition flex items-center justify-center space-x-2 rounded clip-path-polygon">
+                <button onclick="openMap()" class="w-full border-2 border-yellow-500 text-yellow-500 py-3 font-bold hover:bg-yellow-500 hover:text-black transition-colors flex items-center justify-center space-x-2 rounded clip-path-polygon">
                     <i class="fa-solid fa-location-arrow"></i>
                     <span>VER UBICACIÓN</span>
                 </button>
             </div>
 
-            <p class="mt-6 text-xs text-gray-500 font-mono">
-                TRAE TU MEJOR SKIN. NO FALTES O PERDERÁS RANGO.
+            <p class="mt-8 text-[10px] text-gray-500 font-mono opacity-70">
+                // SISTEMA: TRAE TU MEJOR SKIN. NO FALTES O PERDERÁS RANGO.
             </p>
         </div>
     </div>
 
+    <!-- ELEMENTOS DE AUDIO (Gestionados por JS) -->
+    <audio id="bg-music" loop preload="auto"></audio>
+    <audio id="sfx-click" preload="auto"><source src="https://codeskulptor-demos.commondatastorage.googleapis.com/click.mp3" type="audio/mp3"></audio>
+    <audio id="sfx-open" preload="auto"><source src="https://actions.google.com/sounds/v1/science_fiction/scifi_laser.ogg" type="audio/ogg"></audio>
+    <audio id="sfx-booyah" preload="auto"><source src="https://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/bonus.wav" type="audio/wav"></audio>
+    <audio id="sfx-wind" loop preload="auto"><source src="https://actions.google.com/sounds/v1/weather/wind_blowing_strong.ogg" type="audio/ogg"></audio>
+    <audio id="sfx-fire" loop preload="auto"><source src="https://actions.google.com/sounds/v1/ambiences/fire.ogg" type="audio/ogg"></audio>
+
+
     <script>
-        /* --- LOGICA DEL JUEGO / INVITACIÓN --- */
+        /* ==============================================
+           ZONA DE CONFIGURACIÓN (EDITA AQUÍ TUS DATOS)
+           ============================================== */
+        const CONFIGURACION = {
+            // ENLACE DE MÚSICA DE FONDO:
+            // Pega aquí el enlace directo a tu archivo MP3 (debe terminar en .mp3)
+            musicaFondo: "https://downloads.khinsider.com/game-soundtracks/album/garena-free-fire-classic-original-game-soundtrack-2020-android-ios/08.%2520Free%2520Fire%2520-%2520Booyah%2521.mp3", 
+            
+            // DATOS DE WHATSAPP:
+            telefono: "522311405470", // Tu número con código de país
+            mensajeConfirmacion: "¡Hola! Confirmo mi asistencia al cumpleaños de David. Mi nombre es: ",
+            
+            // DATOS DEL MAPA:
+            linkMapa: "https://share.google/cUb8p7q7XV94e3xAB", // Enlace de Google Maps
+
+            // TEXTOS DE LA INVITACIÓN:
+            fecha: "Martes, 27 de Enero",
+            hora: "3:30 PM (15:30 hrs)",
+            direccion: "Pizzas Angelotti (Abasolo 211, Centro, 73800 Teziutlán)"
+        };
+
+
+        /* --- INICIALIZACIÓN DE DATOS --- */
+        
+        // Cargar música desde la configuración
+        document.getElementById('bg-music').src = CONFIGURACION.musicaFondo;
+
+        // Cargar textos en el HTML
+        document.getElementById('info-date').textContent = CONFIGURACION.fecha;
+        document.getElementById('info-time').textContent = CONFIGURACION.hora;
+        document.getElementById('info-address').textContent = CONFIGURACION.direccion;
+
+        /* --- LOGICA DEL JUEGO / INTERACCIÓN --- */
 
         // Referencias Audio
         const bgMusic = document.getElementById('bg-music');
@@ -375,58 +422,40 @@
         const screenInvite = document.getElementById('screen-invite');
         const lootBox = document.getElementById('loot-box');
 
-        // --- CONTROL DE VOLUMEN (NUEVO) ---
+        // --- CONTROL DE VOLUMEN ---
         const volSlider = document.getElementById('vol-slider');
         const volIcon = document.getElementById('vol-icon');
         const allAudio = [bgMusic, sfxClick, sfxOpen, sfxBooyah, sfxWind, sfxFire];
 
         function updateVolume(value) {
-            // Aplicar volumen a todos los audios
-            allAudio.forEach(audio => {
-                audio.volume = value;
-            });
-
-            // Actualizar icono según nivel
+            allAudio.forEach(audio => { audio.volume = value; });
+            
             if (value == 0) {
                 volIcon.className = "fa-solid fa-volume-xmark text-gray-500 mr-3 w-4 text-center text-lg";
             } else if (value < 0.5) {
-                volIcon.className = "fa-solid fa-volume-low text-yellow-500 mr-3 w-4 text-center text-lg";
+                volIcon.className = "fa-solid fa-volume-low text-yellow-500 mr-3 w-4 text-center text-lg drop-shadow-[0_0_5px_rgba(255,187,0,0.8)]";
             } else {
-                volIcon.className = "fa-solid fa-volume-high text-yellow-500 mr-3 w-4 text-center text-lg";
+                volIcon.className = "fa-solid fa-volume-high text-yellow-500 mr-3 w-4 text-center text-lg drop-shadow-[0_0_5px_rgba(255,187,0,0.8)]";
             }
         }
 
-        // Event listener para el slider
         volSlider.addEventListener('input', (e) => updateVolume(e.target.value));
+        updateVolume(0.2); // Volumen inicial 20%
 
-        // Establecer volumen inicial al 20%
-        updateVolume(0.2);
-
-
-        // Función auxiliar para reproducir audio de forma segura
-        function safePlay(audioElement, label) {
-            // Aseguramos que el volumen es el correcto antes de reproducir
+        // Helper para reproducir audio seguro
+        function safePlay(audioElement) {
             audioElement.volume = volSlider.value;
-            
             const playPromise = audioElement.play();
             if (playPromise !== undefined) {
-                playPromise.then(_ => {
-                    // Reproducción exitosa
-                    console.log(`Audio ${label} reproduciendo.`);
-                })
-                .catch(error => {
-                    console.warn(`Error reproduciendo ${label}:`, error);
-                });
+                playPromise.catch(error => console.warn("Audio play prevented:", error));
             }
         }
 
         function startGame() {
-            // AL hacer click aquí, el navegador nos da permiso para reproducir audio
-            safePlay(sfxClick, 'Click');
-            safePlay(bgMusic, 'Música Fondo');
-            safePlay(sfxWind, 'Viento');
+            safePlay(sfxClick);
+            safePlay(bgMusic);
+            safePlay(sfxWind);
 
-            // Transición Visual
             screenStart.classList.add('hidden');
             screenStart.style.opacity = 0;
             
@@ -443,55 +472,39 @@
             if(isOpening) return;
             isOpening = true;
 
-            // Efecto Shake
             lootBox.classList.remove('airdrop-box');
             lootBox.classList.add('shake-box');
-            
-            // Sonido carga tecnológico
-            safePlay(sfxOpen, 'Carga');
-            
-            // Pausar el viento suavemente
-            sfxWind.pause();
+            safePlay(sfxOpen);
+            sfxWind.pause(); // Silenciar viento
 
             setTimeout(() => {
-                // Explosión visual (simulada con transición)
                 screenDrop.style.opacity = 0;
                 
                 setTimeout(() => {
                     screenDrop.style.display = 'none';
                     screenInvite.classList.remove('hidden');
                     
-                    // Sonido triunfal Booyah!
-                    safePlay(sfxBooyah, 'Victoria');
-                    
-                    // Iniciar sonido ambiente de fuego crepitando
-                    safePlay(sfxFire, 'Fuego');
-                    
-                    // Iniciar partículas de fuego
+                    safePlay(sfxBooyah);
+                    safePlay(sfxFire);
                     startFireParticles();
                 }, 500);
-            }, 1500); // Tiempo que tarda en abrirse
+            }, 1500);
         }
 
         function confirmAssist() {
-            // Reemplaza este número con el tuyo
-            const phone = "522311405470"; 
-            const msg = "¡Hola! Confirmo mi asistencia al cumpleaños de David. Mi nombre es: ";
-            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+            window.open(`https://wa.me/${CONFIGURACION.telefono}?text=${encodeURIComponent(CONFIGURACION.mensajeConfirmacion)}`, '_blank');
         }
 
         function openMap() {
-            // Reemplaza con la dirección real o link de google maps
-            window.open("https://share.google/cUb8p7q7XV94e3xAB", '_blank');
+            window.open(CONFIGURACION.linkMapa, '_blank');
         }
 
 
-        /* --- CANVAS BACKGROUND & PARTICLES --- */
+        /* --- EFECTOS VISUALES (CANVAS) --- */
         
-        // 1. Fondo Táctico (Lineas de radar simples)
+        // 1. Fondo Táctico
         const canvasBg = document.getElementById('bg-canvas');
         const ctxBg = canvasBg.getContext('2d');
-        
         let width, height;
 
         function resize() {
@@ -504,17 +517,20 @@
         }
         window.addEventListener('resize', resize);
         
-        // Grid Animation Loop
         let offset = 0;
         function drawBg() {
-            ctxBg.fillStyle = '#0f0f0f';
+            // Fondo oscuro con gradiente
+            const gradient = ctxBg.createLinearGradient(0, 0, 0, height);
+            gradient.addColorStop(0, '#1a1a1a');
+            gradient.addColorStop(1, '#000000');
+            ctxBg.fillStyle = gradient;
             ctxBg.fillRect(0, 0, width, height);
             
-            ctxBg.strokeStyle = '#222';
+            // Grid Táctico
+            ctxBg.strokeStyle = 'rgba(255, 187, 0, 0.05)'; // Amarillo muy tenue
             ctxBg.lineWidth = 1;
 
-            // Dibujar grid moviéndose
-            offset = (offset + 0.5) % 50;
+            offset = (offset + 0.2) % 50;
             
             for (let x = 0; x < width; x += 50) {
                 ctxBg.beginPath();
@@ -523,6 +539,7 @@
                 ctxBg.stroke();
             }
             
+            // Líneas horizontales en movimiento (Efecto escáner)
             for (let y = offset; y < height; y += 50) {
                 ctxBg.beginPath();
                 ctxBg.moveTo(0, y);
@@ -530,17 +547,19 @@
                 ctxBg.stroke();
             }
 
-            // Radar Circle
-            ctxBg.strokeStyle = '#333';
+            // Radar central
+            ctxBg.strokeStyle = 'rgba(255, 187, 0, 0.1)';
             ctxBg.beginPath();
             ctxBg.arc(width/2, height/2, 150, 0, Math.PI * 2);
+            ctxBg.stroke();
+            ctxBg.beginPath();
+            ctxBg.arc(width/2, height/2, 100, 0, Math.PI * 2);
             ctxBg.stroke();
 
             requestAnimationFrame(drawBg);
         }
         
-
-        // 2. Fire Particles (Solo se activan al final)
+        // 2. Partículas de Fuego
         const fireCanvas = document.getElementById('fire-overlay');
         const ctxFire = fireCanvas.getContext('2d');
         let particles = [];
@@ -548,19 +567,25 @@
         class Particle {
             constructor() {
                 this.x = Math.random() * width;
-                this.y = height + Math.random() * 100;
+                this.y = height + Math.random() * 50;
                 this.speedY = Math.random() * 3 + 2;
-                this.size = Math.random() * 5 + 2;
-                this.color = `rgba(255, ${Math.floor(Math.random() * 150)}, 0, 1)`;
-                this.decay = Math.random() * 0.02 + 0.01;
+                this.speedX = (Math.random() - 0.5) * 1.5;
+                this.size = Math.random() * 6 + 2;
+                // Colores entre rojo y amarillo
+                const red = 255;
+                const green = Math.floor(Math.random() * 180); 
+                this.color = `rgba(${red}, ${green}, 0,`; // Alpha se añade al dibujar
+                this.alpha = 1;
+                this.decay = Math.random() * 0.015 + 0.005;
             }
             update() {
                 this.y -= this.speedY;
-                this.size -= this.decay;
-                if (this.size < 0) this.size = 0;
+                this.x += this.speedX;
+                this.alpha -= this.decay;
+                if (this.alpha < 0) this.alpha = 0;
             }
             draw() {
-                ctxFire.fillStyle = this.color;
+                ctxFire.fillStyle = `${this.color} ${this.alpha})`;
                 ctxFire.beginPath();
                 ctxFire.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctxFire.fill();
@@ -568,16 +593,18 @@
         }
 
         function startFireParticles() {
-            resize(); // Asegurar tamaño correcto
+            resize();
             function animateFire() {
                 ctxFire.clearRect(0, 0, width, height);
-                if (particles.length < 100) {
+                // Generar nuevas partículas constantemente
+                if (particles.length < 150) {
                     particles.push(new Particle());
+                    particles.push(new Particle()); // Doble intensidad
                 }
                 for (let i = 0; i < particles.length; i++) {
                     particles[i].update();
                     particles[i].draw();
-                    if (particles[i].size <= 0) {
+                    if (particles[i].alpha <= 0) {
                         particles.splice(i, 1);
                         i--;
                     }
