@@ -297,9 +297,12 @@
             <div class="mt-14 mb-4 flex justify-center">
                 <!-- Rango con edad -->
                 <div class="relative drop-shadow-[0_0_15px_rgba(255,215,0,0.5)]">
-                    <i class="fa-solid fa-shield-halved text-9xl text-yellow-600"></i>
-                    <div class="absolute inset-0 flex items-center justify-center pt-2">
-                        <span class="font-ops text-6xl text-white drop-shadow-md">9</span>
+                    <!-- CORRECCIÓN: Tamaños responsivos (8xl en móvil, 9xl en PC) para evitar desbordes -->
+                    <i class="fa-solid fa-shield-halved text-8xl md:text-9xl text-yellow-600"></i>
+                    
+                    <!-- CORRECCIÓN: Ajuste de centrado y tamaño del número acorde al escudo -->
+                    <div class="absolute inset-0 flex items-center justify-center pt-1 md:pt-2">
+                        <span class="font-ops text-5xl md:text-6xl text-white drop-shadow-md">9</span>
                     </div>
                 </div>
             </div>
@@ -383,7 +386,7 @@
             musicaFondo: "https://nu.vgmtreasurechest.com/soundtracks/garena-free-fire-classic-original-game-soundtrack-2020-android-ios/moixpiua/08.%20Free%20Fire%20-%20Booyah%21.mp3", 
             
             // DATOS DE WHATSAPP:
-            telefono: "522311405470", // Tu número con código de país
+            telefono: "522311576228", // Tu número con código de país
             mensajeConfirmacion: "¡Hola! Confirmo mi asistencia al cumpleaños de David. Mi nombre es: ",
             
             // DATOS DEL MAPA:
